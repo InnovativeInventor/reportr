@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Reportr | Reporting COVID-19 rule violations</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ==" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script defer>
+         var people = [
+             "Max Fan '21",
+             "Kyle Di Tieri"
+         ];
+
+         var people_ordered = [
+             {id: 1, text:"Max Fan '21"},
+             {id:2, text:"Kyle Di Tieri"}
+         ];
+         function validate(){ // Validation and log function
+             $("#report").validate({
+                 submitHandler: function(form) {
+                     console.log("Submitted!"); //just for debugging
+                     form.submit();
+                 }
+             });
+         }
+
+         jQuery.validator.addMethod("#witnesses", function(value, element) {
+             return people.includes(value);
+         }, "Please specify a valid person.");
+
+         jQuery.validator.addMethod("#instigators", function(value, element) {
+             return false;
+         }, "Please specify a valid person.");
+         
+         $(document).ready(function () {
+             $('.js-example-basic-multiple').select2({data: people_ordered});
+             $(".people").autocomplete({
+                 source: people,
+                 autoFocus: true,
+                 classes: {
+                     "ui-menu": "highlight"
+                 }
+             });
+             /* $(".instigators").autocomplete({
+              *     source: people,
+              *     autoFocus: true,
+              *     classes: {
+              *         "ui-menu": "highlight"
+              *     }
+              * }); */
+         });
+
+         function validatePerson(person){
+             return people.includes(person);
+         };
+
+         function addInput(e, myName, myValue){
+             console.log("Test");
+             if (validatePerson(myValue)) {
+                 console.log("Person is in db");
+                 console.log(myValue);
+             }
+         }
+         $('#witnesses-1').bind('input',addInput);
+        </script>
+    </head>
+    <body>
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    Reportr
+                </h1>
+                <p class="subtitle">
+                    Please fill out the report to the best of your ability. You may leave sections blank.
+                </p>
+
+                <br>
+
+                <form id="report-form" action="/report.html">
+                    <div class="field">
+                        <label class="label">Instigator(s):</label>
+                        <div class="control">
+                            <input class="input is-success people" type="text" placeholder="Instigator Name" value="Max Fan '21" name="instigators-1" id="instigators-1">
+                        </div>
+                    </div>
+                    <!-- <p class="help is-danger">Invalid name!</p> -->
+
+                    <div class="field">
+                        <label class="label">Witness(es), excluding yourself:</label>
+                        <div class="control">
+                            <input class="input is-success people" type="text" placeholder="Witness Name" value="Kyle Di Tieri" name="witnesses-1" id="witnesses-1">
+                        </div>
+
+                        <label class="label">Description (optional)</label>
+                        <div class="control">
+                            <textarea class="textarea" placeholder="Somewhat detailed description." name="description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Reason</label>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="low">
+                                Social distancing
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="medium">
+                                Mask wearing
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="high">
+                                Hygiene
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Severity</label>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="low">
+                                Low
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="medium">
+                                Medium
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="high">
+                                High
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <!-- <button class="button is-link" onclick="javascript:$('#form').submit();">Submit</button> -->
+                            <button class="button is-link" type="submit">Submit</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link is-light">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </body>
+</html>

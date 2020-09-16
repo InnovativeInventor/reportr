@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "reportr"
+version = "0.1.0"
+description = "Reporting COVID-19 rule violations"
+authors = ["Max Fan <root@max.fan>"]
+license = "GPL-3.0-or-later"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+authlib = "^0.14.3"
+fastapi = "^0.61.1"
+uvicorn = "^0.11.8"
+httpx = "^0.14.3"
+itsdangerous = "^1.1.0"
+mongoset = "^0.3.2"
+aiofiles = "^0.5.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.0.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
