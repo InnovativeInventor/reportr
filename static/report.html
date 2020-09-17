@@ -170,7 +170,7 @@
                     <div class="field">
                         <div class="file">
                             <label class="file-label">
-                                <input class="file-input" type="file" name="resume">
+                                <input class="file-input" type="file" name="document">
                                 <span class="file-cta">
                                     <span class="file-icon">
                                         <ion-icon name="document-outline"></ion-icon>
@@ -196,7 +196,15 @@
                             <button class="button is-link is-light">Cancel</button>
                         </div>
                     </div>
+
                 </form>
+
+                <hr>
+
+                <h5>For admins:</h5>
+                <button class="button is-medium is-link is-outlined" onclick="window.location='/backend/json'">Export to JSON</button>
+                <button class="button is-medium is-link is-outlined" onclick="window.location='/backend/csv'">Export to CSV</button>
+
             </div>
         </section>
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
