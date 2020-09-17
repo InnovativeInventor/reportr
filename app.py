@@ -65,6 +65,10 @@ async def report(request: Request, instigators: List[str], witnesses: List[str],
         detail="Unauthorized call. Are you authenticated?",
     )
 
+@app.route("/")
+async def index(request: Request):
+    return RedirectResponse(url="/index.html")
+
 ## API mounting
 app.mount("/backend", backend)
 app.mount("/", StaticFiles(directory="static"), name="static")
