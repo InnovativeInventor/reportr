@@ -1,5 +1,5 @@
 # reportr
-To run and reproduce, simply type (once poetry is installed):
+To run and reproduce, simply type (once poetry is installed: `pip install poetry`):
 
 ```bash
 poetry install
