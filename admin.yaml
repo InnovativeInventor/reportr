@@ -1,4 +1,4 @@
 admins:
-  - mfan21@choate.edu
+  - mfan21@choate.edu # just for testing, remove in production
   - kditieri@choate.edu
   - chogue@choate.edu
